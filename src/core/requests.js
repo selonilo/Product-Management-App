@@ -13,3 +13,15 @@ export function login(body) {
       });
   });
 }
+export function register(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(paths.register, body)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
