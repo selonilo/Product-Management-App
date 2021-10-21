@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {theme} from '../../core/theme';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import * as services from '../../core/requests';
 import {setAccessToken, setRefreshToken} from '../../core/auth';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -69,6 +76,12 @@ const LoginScreen = () => {
           onPress={() => handleLogin()}>
           <Text>GİRİŞ YAP</Text>
         </Button>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('RegisterScreen');
+          }}>
+          <Text style={styles.registerText}>Hesabın yok mu ? Kayıt ol</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -98,6 +111,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignSelf: 'center',
     marginTop: 20,
+  },
+  registerText: {
+    color: theme.colors.lightBlue,
+    marginTop: 10,
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
