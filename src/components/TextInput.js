@@ -8,11 +8,13 @@ export default function TextInput({errorText, ...props}) {
   return (
     <View style={styles.container}>
       <Kohana
-        style={{
-          backgroundColor: theme.colors.surface,
-          borderRadius: 10,
-          paddingVertical: 10,
-        }}
+        style={[
+          {
+            backgroundColor: theme.colors.surface,
+            borderRadius: 10,
+            paddingVertical: 10,
+          },
+        ]}
         clearButtonMode="always"
         iconClass={MaterialCommunityIcons}
         iconColor={theme.colors.primary}
@@ -38,7 +40,9 @@ export default function TextInput({errorText, ...props}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '80%',
+    alignSelf: 'center',
+    height: 65,
   },
   error: {
     fontSize: theme.fontSize.FONT_SIZE_13,

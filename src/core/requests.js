@@ -1,14 +1,14 @@
-import axios from "axios";
-import * as paths from "./paths";
+import axios from 'axios';
+import * as paths from './paths';
 
-export function getRefreshToken(body) {
+export function login(body) {
   return new Promise((resolve, reject) => {
     axios
-      .post(paths.refreshToken, body)
-      .then((res) => {
+      .post(paths.login, body)
+      .then(res => {
         resolve(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         reject(err);
       });
   });

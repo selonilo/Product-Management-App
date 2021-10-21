@@ -9,6 +9,7 @@ import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = AnimatedTabBarNavigator();
@@ -48,8 +49,8 @@ const Navigator = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="ProductPage"
-          component={ProductPage}
+          name="HomeScreen"
+          component={HomeScreen}
           options={{...headerConfig, title: 'Ürün Ekleme'}}
         />
       </Stack.Navigator>
