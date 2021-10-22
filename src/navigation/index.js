@@ -3,13 +3,14 @@ import React, {Fragment, useEffect} from 'react';
 import {theme} from '../core/theme';
 import Icon from 'react-native-vector-icons/Feather';
 import {HeaderBackButton} from '@react-navigation/elements';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
+import Profile from '../screens/Profile';
 
 const Stack = createNativeStackNavigator();
 const Tab = AnimatedTabBarNavigator();
@@ -130,8 +131,8 @@ const Navigator = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="TabNavigator"
-          component={TabNavigator}
+          name="HomeStack"
+          component={HomeStack}
           options={{headerShown: false}}
         />
         <Stack.Screen

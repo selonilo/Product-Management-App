@@ -34,14 +34,14 @@ export default function SplashScreen({navigation}) {
     try {
       // axios.defaults.baseURL = Paths.baseUrl;
       const user = await getAccessToken();
-
+console.log(user)
       if (user) {
         await stateAxiosHeader();
         await saveUser(user);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
-            routes: [{name: 'TabNavigator'}],
+            routes: [{name: 'HomeStack'}],
           }),
         );
       } else {
