@@ -25,3 +25,16 @@ export function register(body) {
       });
   });
 }
+
+export function addProduct(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(paths.addProduct, body)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
