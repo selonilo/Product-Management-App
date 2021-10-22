@@ -3,14 +3,13 @@ import React, {Fragment, useEffect} from 'react';
 import {theme} from '../core/theme';
 import Icon from 'react-native-vector-icons/Feather';
 import {HeaderBackButton} from '@react-navigation/elements';
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
-import Profile from '../screens/Profile';
 
 const Stack = createNativeStackNavigator();
 const Tab = AnimatedTabBarNavigator();
@@ -97,23 +96,6 @@ const Navigator = () => {
           })}
           name="HomeStack"
           component={HomeStack}
-        />
-
-        <Tab.Screen
-          options={{
-            title: 'Profil',
-            tabBarIcon: ({focused, color, size}) => (
-              <Icon
-                name="user"
-                size={size ? size : 24}
-                color={focused ? color : '#222222'}
-                focused={focused}
-                color={color}
-              />
-            ),
-          }}
-          name="Profile"
-          component={Profile}
         />
       </Tab.Navigator>
     );
