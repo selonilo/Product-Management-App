@@ -12,12 +12,15 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import * as services from '../../core/requests';
 import {setAccessToken, setRefreshToken} from '../../core/auth';
+import {CommonActions} from '@react-navigation/native';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
+    setLoading(true);
     let body = {
       username: username,
       password: password,
@@ -30,12 +33,14 @@ const LoginScreen = ({navigation}) => {
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
-            routes: [{name: 'TabNavigator'}],
+            routes: [{name: 'HomeStack'}],
           }),
         );
       })
-      .catch(err => alert(err?.response?.data?.message));
+      .catch(err => console.log(err?.response))
+      .finally(res => setLoading(false));
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -73,6 +78,7 @@ const LoginScreen = ({navigation}) => {
         <Button
           mode="contained"
           style={styles.button}
+          loading={loading}
           onPress={() => handleLogin()}>
           <Text>GİRİŞ YAP</Text>
         </Button>
