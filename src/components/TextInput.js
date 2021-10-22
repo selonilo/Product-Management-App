@@ -20,7 +20,7 @@ export default function TextInput({errorText, ...props}) {
         iconColor={theme.colors.primary}
         inputPadding={10}
         labelStyle={{
-          color: theme.colors.secondary,
+          color: theme.colors.text,
           textAlignVertical: 'center',
           paddingVertical: 15,
           paddingHorizontal: 10,
