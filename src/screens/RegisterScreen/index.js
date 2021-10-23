@@ -13,17 +13,13 @@ import Button from '../../components/Button';
 import * as services from '../../core/requests';
 
 const RegisterScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [gsmNo, setGSMNo] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleRegister = () => {
     let body = {
-      email: email,
-      gsmNo: gsmNo,
-      name: name,
-      surname: surname,
+      username: username,
+      password: password,
     };
     services
       .register(body)
@@ -42,12 +38,12 @@ const RegisterScreen = ({navigation}) => {
 
         <View style={styles.usernameWrapper}>
           <TextInput
-            label="Ad"
+            label="Kullanıcı Adı"
             iconName={'label'}
             returnKeyType="next"
-            value={name}
+            value={username}
             onChangeText={text => {
-              setName(text);
+              setUsername(text);
             }}
             autoCapitalize="none"
             keyboardType="default"
@@ -56,49 +52,24 @@ const RegisterScreen = ({navigation}) => {
 
         <View style={styles.passwordWrapper}>
           <TextInput
-            label="Soyadı"
+            label="Şifre"
             iconName={'label'}
             returnKeyType="next"
-            value={surname}
+            value={password}
             onChangeText={text => {
-              setSurname(text);
+              setPassword(text);
             }}
             autoCapitalize="none"
             keyboardType="default"
-          />
-        </View>
-        <View style={styles.passwordWrapper}>
-          <TextInput
-            label="E-Posta"
-            iconName={'label'}
-            returnKeyType="next"
-            value={email}
-            onChangeText={text => {
-              setEmail(text);
-            }}
-            autoCapitalize="none"
-            keyboardType="default"
+            secureTextEntry
           />
         </View>
 
-        <View style={styles.passwordWrapper}>
-          <TextInput
-            label="GSM No"
-            iconName={'label'}
-            returnKeyType="next"
-            value={gsmNo}
-            onChangeText={text => {
-              setGSMNo(text);
-            }}
-            autoCapitalize="none"
-            keyboardType="default"
-          />
-        </View>
         <Button
           mode="contained"
           style={styles.button}
           onPress={() => handleRegister()}>
-          <Text>GİRİŞ YAP</Text>
+          <Text>KAYIT OL</Text>
         </Button>
         <TouchableOpacity
           onPress={() => {
