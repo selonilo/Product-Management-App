@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
   const handleLogin = () => {
     setLoading(true);
     if (!username || !password) {
-      setLoading(false)
+      setLoading(false);
       return alert('Lütfen tüm alanları doldurun');
     }
     let body = {
@@ -32,9 +32,8 @@ const LoginScreen = ({navigation}) => {
     services
       .login(body)
       .then(res => {
-        console.log(res);
-        setAccessToken(res.token);
-        setRefreshToken(res.refreshToken);
+        setAccessToken(res.accessToken);
+        // setRefreshToken(res.refreshToken);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
@@ -42,7 +41,7 @@ const LoginScreen = ({navigation}) => {
           }),
         );
       })
-      .catch(err => console.log(err?.response))
+      .catch(err => alert(err?.response?.data?.message))
       .finally(res => setLoading(false));
   };
 
