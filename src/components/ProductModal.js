@@ -16,7 +16,8 @@ const ProductModal = ({
   quantity,
   brand,
   loading,
-  addProduct,
+  onPress,
+  label
 }) => {
   return (
     <Modal
@@ -70,8 +71,8 @@ const ProductModal = ({
             mode="contained"
             style={styles.button}
             loading={loading}
-            onPress={() => addProduct()}>
-            <Text style={{color: theme.colors.primary}}>ÜRÜN EKLE</Text>
+            onPress={() => onPress()}>
+            <Text style={{color: theme.colors.primary}}>{label}</Text>
           </Button>
         </View>
       </View>
