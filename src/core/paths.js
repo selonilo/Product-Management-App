@@ -1,7 +1,6 @@
 //test
 
-export const baseUrl = 'http://192.168.1.154:1666/';
+export const baseUrl = 'http://localhost:3001/';
 
-export const login = baseUrl + 'public/login';
-export const register = baseUrl + 'public/register';
-export const addProduct = baseUrl + 'product';
+export const login = baseUrl + 'api/auth/signup';
+export const register = baseUrl + 'api/auth/signin';
