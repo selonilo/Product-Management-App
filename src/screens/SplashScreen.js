@@ -34,7 +34,6 @@ export default function SplashScreen({navigation}) {
     try {
       // axios.defaults.baseURL = Paths.baseUrl;
       const user = await getAccessToken();
-console.log(user)
       if (user) {
         await stateAxiosHeader();
         await saveUser(user);
