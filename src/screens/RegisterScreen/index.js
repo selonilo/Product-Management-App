@@ -15,8 +15,10 @@ import * as services from '../../core/requests';
 const RegisterScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = () => {
+    setLoading(true);
     let body = {
       username: username,
       password: password,
@@ -24,10 +26,11 @@ const RegisterScreen = ({navigation}) => {
     services
       .register(body)
       .then(res => {
-        alert('Başarı ile kayıt olundu')
+        alert('Başarı ile kayıt olundu');
         navigation.navigate('LoginScreen');
       })
-      .catch(err => alert(err?.response?.data?.message));
+      .catch(err => alert(err?.response?.data?.message))
+      .finally(res => setLoading(false));
   };
 
   return (
@@ -68,6 +71,7 @@ const RegisterScreen = ({navigation}) => {
 
         <Button
           mode="contained"
+          loading={loading}
           style={styles.button}
           onPress={() => handleRegister()}>
           <Text>KAYIT OL</Text>
