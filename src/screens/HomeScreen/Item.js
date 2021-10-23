@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {theme} from '../../core/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import * as services from '../../core/requests';
+import Feather from 'react-native-vector-icons/Feather';
 
-const Item = ({item,deleteProductById}) => {
+const Item = ({item, deleteProductById, editProductById}) => {
   const Content = ({label, value}) => {
     return (
       <View style={styles.contentWrapper}>
@@ -22,6 +22,16 @@ const Item = ({item,deleteProductById}) => {
         }}
         style={styles.iconWrapper}>
         <AntDesign name="delete" size={30} color={theme.colors.error} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => editProductById()}
+        style={[styles.iconWrapper, {marginRight: 30}]}>
+        <Feather
+          name="edit"
+          size={30}
+          color={theme.colors.lightBlue}
+          style={{marginRight: 5}}
+        />
       </TouchableOpacity>
       <Content label="Adı:" value={item?.name} />
       <Content label="Stok Durumu:" value={item?.quantity} />
