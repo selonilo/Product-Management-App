@@ -24,6 +24,7 @@ const RegisterScreen = ({navigation}) => {
     services
       .register(body)
       .then(res => {
+        alert('Başarı ile kayıt olundu')
         navigation.navigate('LoginScreen');
       })
       .catch(err => console.log(err));
