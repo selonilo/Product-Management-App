@@ -9,3 +9,4 @@ export const refreshToken = baseUrl + 'api/auth/refreshtoken';
 export const addProduct = baseUrl + 'api/create/product';
 export const getAllProduct = baseUrl + 'api/getAllProduct';
 export const deleteProductById = baseUrl + 'api/deleteProduct';
+export const editProductById = baseUrl + 'api/updateProduct';
