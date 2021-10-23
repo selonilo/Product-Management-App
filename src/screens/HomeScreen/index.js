@@ -14,6 +14,7 @@ const HomeScreen = ({navigation}) => {
   const [result, setResult] = useState([]);
   const [visible, setVisible] = useState(false);
   let emptyProduct = {
+    id: null,
     name: '',
     brand: '',
     quantity: 0,
@@ -91,15 +92,34 @@ const HomeScreen = ({navigation}) => {
 
   const editProductById = item => {
     setVisible(true);
+
     setProduct({
+      id: item?.id,
       name: item?.name,
       brand: item?.brand,
       quantity: item?.quantity,
     });
     setLabel('ÜRÜNÜ GÜNCELLE');
   };
-  const editProduct = () => {
-    alert('ürün güncelleme servisi buraya yazılacak');
+  const handleEditProduct = () => {
+    setLoading(true);
+    let body = {
+      id: product.id,
+      brand: product.brand,
+      name: product.name,
+      quantity: product.quantity,
+    };
+    services
+      .editProductById(body)
+      .then(res => {
+        setVisible(false);
+        getAllProduct()
+        setTimeout(() => {
+          alert(res?.message);
+        }, 400);
+      })
+      .catch(err => console.log(err?.response?.data))
+      .finally(res => setLoading(false));
   };
   return (
     <View style={styles.container}>
@@ -114,7 +134,9 @@ const HomeScreen = ({navigation}) => {
         onChangeName={text => setProduct({...product, name: text})}
         onChangeBrand={text => setProduct({...product, brand: text})}
         onChangeQuantity={text => setProduct({...product, quantity: text})}
-        onPress={() => (label === 'ÜRÜN EKLE' ? addProduct() : editProduct())}
+        onPress={() =>
+          label === 'ÜRÜN EKLE' ? addProduct() : handleEditProduct()
+        }
       />
       <Button
         mode="contained"
