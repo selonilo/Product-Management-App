@@ -18,6 +18,7 @@ const HomeScreen = ({navigation}) => {
     brand: '',
     quantity: 0,
   };
+  const [label, setLabel] = useState('');
   const [product, setProduct] = useState(emptyProduct);
 
   const logout = () => {
@@ -88,19 +89,32 @@ const HomeScreen = ({navigation}) => {
     });
   }, []);
 
+  const editProductById = item => {
+    setVisible(true);
+    setProduct({
+      name: item?.name,
+      brand: item?.brand,
+      quantity: item?.quantity,
+    });
+    setLabel('ÜRÜNÜ GÜNCELLE');
+  };
+  const editProduct = () => {
+    alert('ürün güncelleme servisi buraya yazılacak');
+  };
   return (
     <View style={styles.container}>
       <ProductModal
         visible={visible}
         onBackdropPress={() => setVisible(!visible)}
-        quantity={product?.quantity}
+        quantity={String(product?.quantity)}
         brand={product?.brand}
-        loading={loading}
         productName={product?.name}
+        loading={loading}
+        label={label}
         onChangeName={text => setProduct({...product, name: text})}
         onChangeBrand={text => setProduct({...product, brand: text})}
         onChangeQuantity={text => setProduct({...product, quantity: text})}
-        addProduct={() => addProduct()}
+        onPress={() => (label === 'ÜRÜN EKLE' ? addProduct() : editProduct())}
       />
       <Button
         mode="contained"
@@ -109,6 +123,7 @@ const HomeScreen = ({navigation}) => {
         onPress={() => {
           setVisible(true);
           setProduct(emptyProduct);
+          setLabel('ÜRÜN EKLE');
         }}>
         <Text>ÜRÜN EKLE</Text>
       </Button>
@@ -117,7 +132,11 @@ const HomeScreen = ({navigation}) => {
         style={{marginTop: 15}}
         keyExtractor={(item, index) => item?.id}
         renderItem={({item}) => (
-          <Item deleteProductById={() => deleteProductById(item)} item={item} />
+          <Item
+            editProductById={() => editProductById(item)}
+            deleteProductById={() => deleteProductById(item)}
+            item={item}
+          />
         )}
       />
     </View>
