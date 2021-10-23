@@ -73,6 +73,7 @@ const LoginScreen = ({navigation}) => {
             }}
             autoCapitalize="none"
             keyboardType="default"
+            secureTextEntry
           />
         </View>
         <Button
