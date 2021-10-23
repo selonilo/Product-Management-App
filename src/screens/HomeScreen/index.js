@@ -1,21 +1,24 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Button from '../../components/Button';
 import {theme} from '../../core/theme';
 import {removeAccessToken, removeRefreshToken} from '../../core/auth';
 import {CommonActions} from '@react-navigation/native';
 import * as services from '../../core/requests';
 import Item from './Item';
+import ProductModal from '../../components/ProductModal';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeScreen = ({navigation}) => {
-  const [product, setProduct] = useState({
-    brand: 'Apple',
-    category: 'Phone',
-    name: 'Apple Watch',
-    quantity: 2,
-  });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState([]);
+  const [visible, setVisible] = useState(false);
+  let emptyProduct = {
+    name: '',
+    brand: '',
+    quantity: 0,
+  };
+  const [product, setProduct] = useState(emptyProduct);
 
   const logout = () => {
     removeAccessToken();
@@ -27,39 +30,96 @@ const HomeScreen = ({navigation}) => {
       }),
     );
   };
-  const addProduct = () => {
-    setLoading(true);
+  const getAllProduct = () => {
     services
-      .addProduct(product)
-      .then(res => {
-        alert(res?.message);
-      })
-      .catch(err => console.log(err))
-      .finally(res => setLoading(false));
+      .getAllProduct()
+      .then(res => setResult(res))
+      .catch(err => console.log(err));
   };
 
-  const getAll = () => {
-    
-  }
+  const deleteProductById = item => {
+    services
+      .deleteProductById({id: item?.id})
+      .then(res => {
+        console.log(res);
+        getAllProduct();
+      })
+      .catch(err => console.log(err));
+  };
+
+  const addProduct = () => {
+    if (!product.name || !product.brand || !product.quantity) {
+      return alert('Lütfen tüm alanları doldurun');
+    }
+    let body = {
+      brand: product.brand,
+      name: product.name,
+      quantity: product.quantity,
+    };
+    setLoading(true);
+    services
+      .addProduct(body)
+      .then(res => {
+        getAllProduct();
+        setTimeout(() => {
+          alert(res?.message);
+        }, 400);
+      })
+      .catch(err => alert(err?.response?.data?.message))
+      .finally(res => {
+        setLoading(false);
+        setVisible(false);
+      });
+  };
+  useEffect(() => {
+    getAllProduct();
+  }, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => logout()}>
+          <MaterialCommunityIcons
+            name="exit-to-app"
+            size={28}
+            color={theme.colors.error}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
+      <ProductModal
+        visible={visible}
+        onBackdropPress={() => setVisible(!visible)}
+        quantity={product?.quantity}
+        brand={product?.brand}
+        loading={loading}
+        productName={product?.name}
+        onChangeName={text => setProduct({...product, name: text})}
+        onChangeBrand={text => setProduct({...product, brand: text})}
+        onChangeQuantity={text => setProduct({...product, quantity: text})}
+        addProduct={() => addProduct()}
+      />
       <Button
         mode="contained"
         style={styles.button}
         loading={loading}
         onPress={() => {
-          addProduct();
+          setVisible(true);
+          setProduct(emptyProduct);
         }}>
         <Text>ÜRÜN EKLE</Text>
       </Button>
-      <Button mode="contained" style={styles.button} onPress={() => logout()}>
-        <Text>ÇIKIŞ YAP</Text>
-      </Button>
-      {/* <FlatList
+      <FlatList
         data={result}
+        style={{marginTop: 15}}
         keyExtractor={(item, index) => item?.id}
-        renderItem={({item}) => <Item item={item} />}
-      /> */}
+        renderItem={({item}) => (
+          <Item deleteProductById={() => deleteProductById(item)} item={item} />
+        )}
+      />
     </View>
   );
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {theme} from '../../core/theme';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import * as services from '../../core/requests';
 
-const Item = ({item}) => {
+const Item = ({item,deleteProductById}) => {
   const Content = ({label, value}) => {
     return (
       <View style={styles.contentWrapper}>
@@ -11,12 +13,19 @@ const Item = ({item}) => {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          deleteProductById();
+        }}
+        style={styles.iconWrapper}>
+        <AntDesign name="delete" size={30} color={theme.colors.error} />
+      </TouchableOpacity>
       <Content label="Adı:" value={item?.name} />
-      <Content label="Kategori:" value={item?.category.name} />
-      <Content label="Stok Durumu:" value={item?.stock?.amount} />
-      <Content label="Marka:" value={item?.brand?.name} />
+      <Content label="Stok Durumu:" value={item?.quantity} />
+      <Content label="Marka:" value={item?.brand} />
     </View>
   );
 };
@@ -44,6 +53,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 15,
     marginVertical: 8,
+  },
+  iconWrapper: {
+    position: 'absolute',
+    right: 15,
+    top: 40,
+    zIndex: 122,
   },
 });
 
