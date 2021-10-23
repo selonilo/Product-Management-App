@@ -26,10 +26,35 @@ export function register(body) {
   });
 }
 
+export function getAllProduct() {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(paths.getAllProduct)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
 export function addProduct(body) {
   return new Promise((resolve, reject) => {
     axios
       .post(paths.addProduct, body)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+export function deleteProductById(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(paths.deleteProductById, body)
       .then(res => {
         resolve(res.data);
       })
