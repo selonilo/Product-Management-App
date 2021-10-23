@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {CommonActions} from '@react-navigation/native';
+import * as Paths from '../core/paths';
 
 const getAccessToken = async () => {
   return await AsyncStorage.getItem('access_token');
@@ -56,28 +57,26 @@ const authenticationRequest = navigation => {
           isRefreshing = true;
           const accessToken = await getAccessToken();
           const refreshToken = await getRefreshToken();
+          console.log('refreshToken',refreshToken)
           axios
             .post(
-              refreshTokenPath, //refreshtokenpath
+              Paths.refreshToken, //refreshtokenpath
               {
-                token: accessToken,
                 refreshToken: refreshToken,
               },
               {headers: {Authorization: null}},
             )
             .then(res => {
-              let {data = {}} = res;
-              !data && (data = {});
-              const {token, refreshToken} = data;
+              const {accessToken, refreshToken} = res;
               setRefreshToken(refreshToken);
-              setAccessToken(token);
-              if (!token) return logout(navigation);
+              setAccessToken(accessToken);
+              if (!accessToken) return logout(navigation);
               isRefreshing = false;
-              onRefreshed(token);
+              onRefreshed(accessToken);
               subscribers = [];
             })
             .catch(err => {
-              logoutnotActive(navigation);
+              console.log("err",err?.response?.data);
             });
         }
 
