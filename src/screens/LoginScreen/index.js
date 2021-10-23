@@ -21,6 +21,10 @@ const LoginScreen = ({navigation}) => {
 
   const handleLogin = () => {
     setLoading(true);
+    if (!username || !password) {
+      setLoading(false)
+      return alert('Lütfen tüm alanları doldurun');
+    }
     let body = {
       username: username,
       password: password,
@@ -28,6 +32,7 @@ const LoginScreen = ({navigation}) => {
     services
       .login(body)
       .then(res => {
+        console.log(res);
         setAccessToken(res.token);
         setRefreshToken(res.refreshToken);
         navigation.dispatch(
