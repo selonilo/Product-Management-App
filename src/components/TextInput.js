@@ -4,7 +4,7 @@ import {theme} from '../core/theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Kohana} from 'react-native-textinput-effects';
 
-export default function TextInput({errorText, ...props}) {
+export default function TextInput({errorText,secureTextEntry, ...props}) {
   return (
     <View style={styles.container}>
       <Kohana
@@ -29,6 +29,7 @@ export default function TextInput({errorText, ...props}) {
         inputStyle={{
           color: theme.colors.primary,
         }}
+        secureTextEntry={secureTextEntry}
         useNativeDriver
         {...props}
       />
