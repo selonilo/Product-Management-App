@@ -33,7 +33,8 @@ const LoginScreen = ({navigation}) => {
       .login(body)
       .then(res => {
         setAccessToken(res.accessToken);
-        // setRefreshToken(res.refreshToken);
+        console.log('res', res);
+        setRefreshToken(res.refreshToken);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
@@ -41,7 +42,10 @@ const LoginScreen = ({navigation}) => {
           }),
         );
       })
-      .catch(err => alert(err?.response?.data?.message))
+      .catch(err => {
+        alert(err?.response?.data?.message);
+        console.log(err?.response?.data)
+      })
       .finally(res => setLoading(false));
   };
 
