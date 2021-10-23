@@ -27,7 +27,7 @@ const RegisterScreen = ({navigation}) => {
         alert('Başarı ile kayıt olundu')
         navigation.navigate('LoginScreen');
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err?.response?.data?.message));
   };
 
   return (
