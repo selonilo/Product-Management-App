@@ -32,7 +32,7 @@ const LoginScreen = ({navigation}) => {
     services
       .login(body)
       .then(res => {
-        setAccessToken(res.accessToken);
+        setAccessToken(res.token);
         console.log('res', res);
         setRefreshToken(res.refreshToken);
         navigation.dispatch(
@@ -43,8 +43,7 @@ const LoginScreen = ({navigation}) => {
         );
       })
       .catch(err => {
-        alert(err?.response?.data?.message);
-        console.log(err?.response?.data)
+        console.log(err)
       })
       .finally(res => setLoading(false));
   };

@@ -51,10 +51,10 @@ export function addProduct(body) {
       });
   });
 }
-export function deleteProductById(body) {
+export function deleteProductById(id) {
   return new Promise((resolve, reject) => {
     axios
-      .post(paths.deleteProductById, body)
+      .delete(paths.deleteProductById + id)
       .then(res => {
         resolve(res.data);
       })
@@ -64,10 +64,10 @@ export function deleteProductById(body) {
   });
 }
 
-export function editProductById(body) {
+export function editProductById(id) {
   return new Promise((resolve, reject) => {
     axios
-      .post(paths.editProductById, body)
+      .put(paths.editProductById + id)
       .then(res => {
         resolve(res.data);
       })

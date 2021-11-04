@@ -63,16 +63,17 @@ const authenticationRequest = navigation => {
               Paths.refreshToken, //refreshtokenpath
               {
                 refreshToken: refreshToken,
+                token: accessToken
               },
               {headers: {Authorization: null}},
             )
             .then(res => {
-              const {accessToken, refreshToken} = res;
+              const {token, refreshToken} = res;
               setRefreshToken(refreshToken);
-              setAccessToken(accessToken);
-              if (!accessToken) return logout(navigation);
+              setAccessToken(token);
+              if (!token) return logout(navigation);
               isRefreshing = false;
-              onRefreshed(accessToken);
+              onRefreshed(token);
               subscribers = [];
             })
             .catch(err => {

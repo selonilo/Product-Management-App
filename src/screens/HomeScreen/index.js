@@ -35,7 +35,7 @@ const HomeScreen = ({navigation}) => {
   const getAllProduct = () => {
     services
       .getAllProduct()
-      .then(res => setResult(res))
+      .then(res => {setResult(res); console.log(res)})
       .catch(err => console.log(err));
   };
 
